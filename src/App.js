@@ -21,11 +21,16 @@ function App() {
     const itemsdata = await orderItemRes.json()
     setOrderItems(itemsdata.orderItems)
     
-  }, [])
+  }, [JSON.stringify(orders)])
+
+  const addNewOrder = (newOrder) => {
+    console.log("add new order: ", newOrder)
+    setOrders([...orders, newOrder]) 
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <OrderForm orderItems={orderItems}/>
+        <OrderForm orderItems={orderItems} addNewOrder={addNewOrder}/>
 
         <br />
 

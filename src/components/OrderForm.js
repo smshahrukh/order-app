@@ -3,7 +3,7 @@ import { Formik, Field, FieldArray } from "formik";
 
 const BASE_URL = "http://localhost:8000";
 
-const OrderForm = ({ orderItems }) => {
+const OrderForm = ({ orderItems, addNewOrder }) => {
 
     const postNewOrder = async (orderData) => {
 
@@ -12,14 +12,11 @@ const OrderForm = ({ orderItems }) => {
             body: JSON.stringify(orderData),
             headers: {
                 'Content-Type': 'application/json'
-            },
-
-
+            }
         })
 
         const orderResponse = await orderRes.json()
-        console.log({ orderResponse })
-
+        addNewOrder(orderResponse.data)
     }
 
     return (
