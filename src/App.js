@@ -17,21 +17,21 @@ import Admin from './pages/Admin'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Router>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/admin">Admin</Link>
-              </li>
-            </ul>
-          </nav>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/admin">Admin</Link>
+            </li>
+          </ul>
+        </nav>
+        <header className="App-header">
 
           <Switch>
             <Route path="/login">
@@ -47,8 +47,8 @@ function App() {
               <Home />
             </Route>
           </Switch>
-        </Router>
-      </header>
+        </header>
+      </Router>
     </div>
   );
 }
