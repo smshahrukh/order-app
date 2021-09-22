@@ -1,40 +1,53 @@
-import React, {useState, useEffect} from 'react';
-import OrderForm from './components/OrderForm';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import './App.css';
 import './styles/styles.css';
-import OrderTable from './components/OrderTable';
 
-const BASE_URL = "http://localhost:8000";
+import Home from './pages/Home'
+import OrderDetails from './pages/OrderDetails'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
 
 function App() {
-
-  const [orders, setOrders] = useState([])
-  const [orderItems, setOrderItems] = useState([])
-
-  useEffect(async () => {
-    const orderRes = await fetch(`${BASE_URL}/orders`)
-    const data = await orderRes.json()
-    setOrders(data.orders)
-
-
-    const orderItemRes = await fetch(`${BASE_URL}/orderItems`)
-    const itemsdata = await orderItemRes.json()
-    setOrderItems(itemsdata.orderItems)
-    
-  }, [JSON.stringify(orders)])
-
-  const addNewOrder = (newOrder) => {
-    console.log("add new order: ", newOrder)
-    setOrders([...orders, newOrder]) 
-  }
   return (
     <div className="App">
       <header className="App-header">
-        <OrderForm orderItems={orderItems} addNewOrder={addNewOrder}/>
+        <Router>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/admin">Admin</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <br />
-
-        <OrderTable orders={orders}/>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path={`/:orderId`}>
+              <OrderDetails />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </header>
     </div>
   );
